@@ -1,23 +1,20 @@
-const taskForm = document.getElementById('taskForm');
-const taskInput = document.getElementById('taskInput');
-const taskList = document.getElementById('taskList');
+function adicionarTarefa() {
+  const input = document.getElementById("nova-tarefa");
+  const texto = input.value.trim();
 
-taskForm.addEventListener('submit', function (e) {
-  e.preventDefault();
+  if (texto === "") return;
 
-  const taskText = taskInput.value.trim();
-  if (taskText === '') return;
+  const li = document.createElement("li");
+  li.innerHTML = `
+    ${texto}
+    <button onclick="removerTarefa(this)">Concluída</button>
+  `;
 
-  const li = document.createElement('li');
-  li.textContent = taskText;
+  document.getElementById("lista-tarefas").appendChild(li);
+  input.value = "";
+}
 
-  const btn = document.createElement('button');
-  btn.textContent = 'Concluída';
-  btn.style.marginLeft = '10px';
-  btn.addEventListener('click', () => li.remove());
-
-  li.appendChild(btn);
-  taskList.appendChild(li);
-
-  taskInput.value = '';
-});
+function removerTarefa(botao) {
+  const li = botao.parentElement;
+  li.remove();
+}
